@@ -10,5 +10,6 @@ router.get('/', function(req, res, next) {
 
 /* Create User */
 router.get('/sign-up', main_controller.user_create_get);
+router.post('/sign-up', main_controller.user_create_post);
 
 module.exports = router;
