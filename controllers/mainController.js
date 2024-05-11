@@ -3,6 +3,9 @@ const User = require('../models/user');
 const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcrypt');
 const { body, validationResult } = require('express-validator');
+const passport = require('passport')
+const session = require('express-session')
+
 
 // ---User Functions---
 
@@ -67,12 +70,15 @@ exports.user_create_post = [
 // Log In User
 
 exports.user_log_in_get = asyncHandler(async (req, res, next) => {
-    res.render('log-in', { title: "Log In" })
+    res.render('log-in', { title: "Log In", message: req.flash('message') })
 })
 
-exports.user_log_in_post = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: balls")
-});
+exports.user_log_in_post =
+    passport.authenticate("local", { 
+        successRedirect: "/", 
+        failureRedirect: "/log-in",
+        failureFlash: true,
+    })
 
 exports.user_update_get = asyncHandler(async (req, res, next) => {
     res.send("NOT IMPLEMENTED: User Update Get")
