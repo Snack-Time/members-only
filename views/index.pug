@@ -3,4 +3,7 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-  a(href='/sign-up') Click me bitch.
+  a(href='/sign-up') Sign up!!! 
+  a(href='/log-in') Log In!!! 
+  if user 
+    p Holy shit is that ${user.username}???

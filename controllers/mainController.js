@@ -70,14 +70,20 @@ exports.user_create_post = [
 // Log In User
 
 exports.user_log_in_get = asyncHandler(async (req, res, next) => {
-    res.render('log-in', { title: "Log In", message: req.flash('message') })
+    const message = req.session.messages || [];
+    req.session.messages = [];
+
+    res.render('log-in', {
+        title: "Log In",
+        message: message[0],
+    })
 })
 
 exports.user_log_in_post =
     passport.authenticate("local", { 
         successRedirect: "/", 
         failureRedirect: "/log-in",
-        failureFlash: true,
+        failureMessage: true,
     })
 
 exports.user_update_get = asyncHandler(async (req, res, next) => {
