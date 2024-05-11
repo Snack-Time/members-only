@@ -1,0 +1,22 @@
+extends layout 
+
+block content 
+    div(class='container')
+        h1(class='text-center')=title
+
+        if errors 
+            div(class='card border-danger')
+                div(class='card-header bg-danger') Error
+                div(class='card-body')
+                    h5(class='card-title') Log In Failed 
+                    for error in errors 
+                        li(class='card-text')!= error.msg
+
+        form(method='POST')
+            div(class='row mb-3').form-group
+                label(for='username' class="col-sm-2 col-form-label") Username:
+                input#username.form-control(type='text' name='username' placeholder='username' required)
+            div(class='row mb-3').form-group
+                label(for='password' class="col-sm-2 col-form-label") Password:
+                input#password.form-control(type='password' name='password' required)
+            button.btn.btn-primary(type='submit') Submit
