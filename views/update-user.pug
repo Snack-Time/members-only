@@ -1,0 +1,22 @@
+extends layout 
+
+block content 
+    div(class='container')
+        h1(class='text-center')=title
+
+        if (!user)
+            h2 How the fuck are you here?
+        else 
+            if errors 
+                div(class='card border-danger')
+                    div(class='card-header bg-danger') Error
+                    div(class='card-body')
+                        h5(class='card-title') User Creation Failed 
+                        for error in errors 
+                            li(class='card-text')!= error.msg
+            h2(class=text-center) You wanna be a member #{user.username}? Then listen here, all you need to do is acknowledge the Tribal Chief, Roman Reigns.
+            form(method='POST')
+                div(class='row mb-3').form-group
+                    label(for='acknowledgehim' class="col-form-label") Type the phrase "I Acknowledge Roman Reigns" to become a member.
+                    input#acknowledgehim.form-control(type='text' name='acknowledgehim' placeholder='ACKNOWLEDGE HIM' required)
+                button.btn.btn-primary(type='submit') Submit

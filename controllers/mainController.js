@@ -87,12 +87,41 @@ exports.user_log_in_post =
     })
 
 exports.user_update_get = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: User Update Get")
+    res.render('update-user', { title: 'Update User', user: req.user })
 });
 
-exports.user_update_post = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: User Update Post")
-});
+exports.user_update_post = [
+    body('acknowledgehim', 'You have not acknowledged your Tribal Chief.')
+    .isString()
+    .trim()
+    .matches('I Acknowledge Roman Reigns'),
+    
+    asyncHandler(async (req, res, next) => {
+        const errors = validationResult(req);
+
+        console.log(errors)
+        if (!errors.isEmpty()) {
+            res.render('update-user', {
+                title: 'Acknowledge Him.',
+                errors: errors.array(),
+                user: req.user,
+            })
+            return
+        }
+        else {
+            const updatedUser = new User({
+                username: req.user.username,
+                password: req.user.password,
+                _id: req.user.id,
+                status: "Member"
+                })
+            await User.findByIdAndUpdate(req.user.id, updatedUser)
+            res.redirect('/')
+            }
+        }
+    )
+]
+
 
 exports.message_create_get = asyncHandler(async (req, res, next) => {
     res.send("NOT IMPLEMENTED: Message Create Get")

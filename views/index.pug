@@ -5,5 +5,8 @@ block content
   p Welcome to #{title}
   a(href='/sign-up') Sign up!!! 
   a(href='/log-in') Log In!!! 
+  a(href='/log-out') Log Out!!!
+  a(href='/update-user') Update!!!
   if user 
-    p Holy shit is that ${user.username}???
+    p Holy shit is that #{user.username}???
+    p You are a #{user.status}
