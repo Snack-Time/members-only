@@ -4,9 +4,7 @@ const router = express.Router();
 const main_controller = require('../controllers/mainController');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express', user: req.user });
-});
+router.get('/', main_controller.index);
 
 /* Create User */
 router.get('/sign-up', main_controller.user_create_get);

@@ -7,6 +7,14 @@ block content
   a(href='/log-in') Log In!!! 
   a(href='/log-out') Log Out!!!
   a(href='/update-user') Update!!!
+
+  each message in messages 
+    p #{message.content}
+    if user
+      if user.status = 'Member'
+        p #{message.timestamp_formatted}
+        p #{message.original_poster.username}
+
   if user 
     p Holy shit is that #{user.username}???
     p You are a #{user.status}

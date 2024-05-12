@@ -6,6 +6,21 @@ const { body, validationResult } = require('express-validator');
 const passport = require('passport')
 const session = require('express-session')
 
+// --- GET Home Page //
+
+exports.index = asyncHandler(async (req, res, next) => {
+    const messages = await Message.find({}, 'content timestamp original_poster')
+    .sort({ timestamp: -1 })
+    .populate('original_poster')
+    .exec();
+    
+    res.render('index', {
+        title: 'The Club Homepage',
+        user: req.user,
+        messages: messages,
+    })
+})
+
 
 // ---User Functions---
 
@@ -123,6 +138,8 @@ exports.user_update_post = [
         }
     )
 ]
+
+// --- Message Functions ---
 
 // Post Message
 
