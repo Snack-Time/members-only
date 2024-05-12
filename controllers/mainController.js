@@ -86,6 +86,8 @@ exports.user_log_in_post =
         failureMessage: true,
     })
 
+// Update User to Member status
+
 exports.user_update_get = asyncHandler(async (req, res, next) => {
     res.render('update-user', { title: 'Update User', user: req.user })
 });
@@ -122,11 +124,40 @@ exports.user_update_post = [
     )
 ]
 
+// Post Message
 
 exports.message_create_get = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Message Create Get")
+    res.render('post-msg', { title: 'Create Message', user: req.user })
 });
 
-exports.message_create_post = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Message Create Post")
-});
+exports.message_create_post = [
+    body('content', 'Message cannot be blank!')
+    .trim()
+    .notEmpty()
+    .isString()
+    .isLength({ min: 1 }),
+    
+    
+    asyncHandler(async (req, res, next) => {
+        const errors = validationResult(req);
+        const msg = new Message({
+            content: req.body.content,
+            original_poster: req.user,
+        })
+
+        console.log(errors)
+        if (!errors.isEmpty()) {
+            res.render('post-msg', {
+                title: 'Create Message',
+                errors: errors.array(),
+                user: req.user,
+            })
+            return
+        }
+        else {
+            await msg.save();
+            res.redirect('/')
+            }
+        }
+    )
+]

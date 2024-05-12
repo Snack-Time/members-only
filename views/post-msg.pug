@@ -1,0 +1,22 @@
+extends layout 
+
+block content 
+    div(class='container')
+        h1(class='text-center')=title
+
+        if user
+            if errors 
+                div(class='card border-danger')
+                    div(class='card-header bg-danger') Error
+                    div(class='card-body')
+                        h5(class='card-title') User Creation Failed 
+                        for error in errors 
+                            li(class='card-text')!= error.msg
+
+            form(method='POST')
+                div(class='row mb-3').form-group
+                    label(for='content' class="col-sm-2 col-form-label") Message:
+                    input#content.form-control(type='text' name='content' placeholder='Share with the club!' required)
+                button.btn.btn-primary(type='submit') Submit
+        else 
+            p what u doin here
