@@ -3,17 +3,24 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-  a(href='/sign-up') Sign up!!! 
-  a(href='/log-in') Log In!!! 
-  a(href='/log-out') Log Out!!!
-  a(href='/update-user') Update!!!
 
-  each message in messages 
-    p #{message.content}
-    if user
-      if user.status = 'Member'
-        p #{message.timestamp_formatted}
-        p #{message.original_poster.username}
+  div(class='container-fluid')
+    each message in messages 
+      if !user
+        div(class='card')
+          p(class='card-text') #{message.content}
+        p &nbsp;
+      if user
+        if user.status==="New"
+          div(class='card')
+            p(class='card-text') #{message.content}
+          p &nbsp;
+        if user.status==="Member"
+          div(class='card')
+            h5(class='card-title') #{message.original_poster.username}
+            p(class='card-text') #{message.content}
+          div(class='card-footer text-muted') #{message.timestamp_formatted}
+          p &nbsp;
 
   if user 
     p Holy shit is that #{user.username}???
