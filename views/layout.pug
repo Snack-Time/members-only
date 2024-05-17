@@ -20,6 +20,10 @@ html
                   a(href='/log-in') Log In
               if user
                 li
+                  p Logged in as #{user.username}
+                li
+                  p User Status: #{user.status}
+                li
                   a(href='/update-user') Update 
                 li 
                   a(href='/log-out') Log Out
