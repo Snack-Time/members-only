@@ -139,6 +139,17 @@ exports.user_update_post = [
     )
 ]
 
+// Logging Out
+
+exports.user_log_out = asyncHandler(async (req, res, next) => {
+    req.logout((err) => {
+        if (err) {
+          return next(err);
+        }
+        res.redirect("/");
+      });
+})
+
 // --- Message Functions ---
 
 // Post Message
