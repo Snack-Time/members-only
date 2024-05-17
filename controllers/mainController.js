@@ -15,7 +15,7 @@ exports.index = asyncHandler(async (req, res, next) => {
     .exec();
     
     res.render('index', {
-        title: 'The Club Homepage',
+        title: 'The Club',
         user: req.user,
         messages: messages,
     })
@@ -108,7 +108,7 @@ exports.user_update_get = asyncHandler(async (req, res, next) => {
 });
 
 exports.user_update_post = [
-    body('acknowledgehim', 'You have not acknowledged your Tribal Chief.')
+    body('acknowledgehim', 'You have not acknowledged your Tribal Chief. Also, feel free to add "/giveadminpls" to the URL after you do this.')
     .isString()
     .trim()
     .matches('I Acknowledge Roman Reigns'),
@@ -131,6 +131,45 @@ exports.user_update_post = [
                 password: req.user.password,
                 _id: req.user.id,
                 status: "Member"
+                })
+            await User.findByIdAndUpdate(req.user.id, updatedUser)
+            res.redirect('/')
+            }
+        }
+    )
+]
+
+// Update User to Admin
+
+exports.user_update_admin_get = asyncHandler(async (req, res, next) => {
+    res.render('admin', { title: 'Update User', user: req.user })
+});
+
+exports.user_update_admin_post = [
+    body('magicword', 'Really?')
+    .isString()
+    .trim()
+    .toLowerCase()
+    .matches('please'),
+    
+    asyncHandler(async (req, res, next) => {
+        const errors = validationResult(req);
+
+        console.log(errors)
+        if (!errors.isEmpty()) {
+            res.render('admin', {
+                title: 'Update User.',
+                errors: errors.array(),
+                user: req.user,
+            })
+            return
+        }
+        else {
+            const updatedUser = new User({
+                username: req.user.username,
+                password: req.user.password,
+                _id: req.user.id,
+                status: "Admin"
                 })
             await User.findByIdAndUpdate(req.user.id, updatedUser)
             res.redirect('/')

@@ -21,6 +21,10 @@ router.get('/log-out', main_controller.user_log_out);
 router.get('/update-user', main_controller.user_update_get);
 router.post('/update-user', main_controller.user_update_post);
 
+/* Admin Route */
+router.get('/giveadminpls', main_controller.user_update_admin_get);
+router.post('/giveadminpls', main_controller.user_update_admin_post);
+
 /* Post Message */
 router.get('/new-message', main_controller.message_create_get);
 router.post('/new-message', main_controller.message_create_post);

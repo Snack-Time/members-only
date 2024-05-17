@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p We be posting.
 
   div(class='container-fluid')
     if user 
@@ -18,7 +18,7 @@ block content
           div(class='card')
             h3(class='card-title') #{message.content}
           p &nbsp;
-        if user.status==="Member"
+        if user.status==="Member" || "Admin"
           div(class='card')
             h3(class='card-title') #{message.content}
             div(class='card-footer text-muted') Posted by #{message.original_poster.username} at #{message.timestamp_formatted}
