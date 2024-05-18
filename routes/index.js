@@ -29,4 +29,7 @@ router.post('/giveadminpls', main_controller.user_update_admin_post);
 router.get('/new-message', main_controller.message_create_get);
 router.post('/new-message', main_controller.message_create_post);
 
+/* Delete Message */
+router.post('/delete-msg/:id', main_controller.message_delete);
+
 module.exports = router;

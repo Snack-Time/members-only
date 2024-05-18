@@ -13,4 +13,8 @@ MsgSchema.virtual("timestamp_formatted").get(function() {
     return DateTime.fromJSDate(this.timestamp).toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS)
 })
 
+MsgSchema.virtual("delete_url").get(function() {
+    return `/delete-msg/${this._id}`
+})
+
 module.exports = mongoose.model("Message", MsgSchema);

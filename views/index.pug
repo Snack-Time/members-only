@@ -22,4 +22,7 @@ block content
           div(class='card')
             h3(class='card-title') #{message.content}
             div(class='card-footer text-muted') Posted by #{message.original_poster.username} at #{message.timestamp_formatted}
+              if user.status==="Admin"
+                form(method='POST' action=message.delete_url)
+                  button(type='submit' class='btn btn-danger btn-primary') Delete Message 
           p &nbsp;
