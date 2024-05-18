@@ -18,7 +18,7 @@ block content
           div(class='card')
             h3(class='card-title') #{message.content}
           p &nbsp;
-        if user.status==="Member" || "Admin"
+        if user.status==="Member"
           div(class='card')
             h3(class='card-title') #{message.content}
             div(class='card-footer text-muted') Posted by #{message.original_poster.username} at #{message.timestamp_formatted}
